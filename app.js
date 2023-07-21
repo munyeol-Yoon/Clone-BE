@@ -15,6 +15,16 @@ app.get("/", (_, res) => {
 
 app.use("/api", indexRouter);
 
+// 에러 핸들링 미들웨어 정의
+app.use((err, req, res, next) => {
+  const status = err.statusCode || 500;
+  const errorMessage = err.message || "서버 에러";
+
+  res.status(status).json({
+    errorMessage,
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);
 });

@@ -5,6 +5,6 @@ const registerController = new RegisterController();
 
 const router = express.Router();
 
-router.post("/");
+router.post("/", registerController.createUser);
 
 module.exports = router;
