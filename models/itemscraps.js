@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class ItemScraps extends Model {
     /**
@@ -10,13 +10,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.Users, {
-        targetKey: 'userId',
-        foreignKey: 'userId',
+        targetKey: "userId",
+        foreignKey: "userId",
       });
 
       this.belongsTo(models.ItemPages, {
-        targetKey: 'itemId',
-        foreignKey: 'itemId',
+        targetKey: "itemId",
+        foreignKey: "itemId",
       });
     }
   }
@@ -26,40 +26,40 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       userId: {
         allowNull: false,
-        type: sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: {
-          model: 'Users',
-          key: 'userId',
+          model: "Users",
+          key: "userId",
         },
-        onDelete: 'CASCADE',
+        onDelete: "CASCADE",
       },
       itemId: {
         allowNull: false,
-        type: sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: {
-          model: 'ItemPages',
-          key: 'itemId',
+          model: "ItemPages",
+          key: "itemId",
         },
-        onDelete: 'CASCADE',
+        onDelete: "CASCADE",
       },
       createdAt: {
         allowNull: false,
-        defaultValue: sequelize.NOW,
-        type: sequelize.DATE,
+        defaultValue: DataTypes.NOW,
+        type: DataTypes.DATE,
       },
       updatedAt: {
         allowNull: false,
-        defaultValue: sequelize.NOW,
-        type: sequelize.DATE,
+        defaultValue: DataTypes.NOW,
+        type: DataTypes.DATE,
       },
     },
     {
       sequelize,
-      modelName: 'ItemScraps',
+      modelName: "ItemScraps",
     }
   );
   return ItemScraps;

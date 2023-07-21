@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class WritePacks extends Model {
     /**
@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       this.belongsTo(models.DetailPages, {
-        targetkey: 'detailsId',
-        foreignKey: 'detailsId',
+        targetkey: "detailsId",
+        foreignKey: "detailsId",
       });
 
       this.belongsTo(models.ItemPages, {
-        targetkey: 'itemId',
-        foreignKey: 'itemId',
+        targetkey: "itemId",
+        foreignKey: "itemId",
       });
     }
   }
@@ -27,40 +27,40 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       detailsId: {
         allowNull: false,
-        type: sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: {
-          models: 'DetailPages',
-          key: 'detailsId',
+          models: "DetailPages",
+          key: "detailsId",
         },
-        onDelete: 'CASCADE',
+        onDelete: "CASCADE",
       },
       itemId: {
         allowNull: false,
-        type: sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: {
-          models: 'ItemPages',
-          key: 'itemId',
+          models: "ItemPages",
+          key: "itemId",
         },
-        onDelete: 'CASCADE',
+        onDelete: "CASCADE",
       },
       createdAt: {
         allowNull: false,
-        defaultValue: sequelize.NOW,
-        type: sequelize.DATE,
+        defaultValue: DataTypes.NOW,
+        type: DataTypes.DATE,
       },
       updatedAt: {
         allowNull: false,
-        defaultValue: sequelize.NOW,
-        type: sequelize.DATE,
+        defaultValue: DataTypes.NOW,
+        type: DataTypes.DATE,
       },
     },
     {
       sequelize,
-      modelName: 'WritePacks',
+      modelName: "WritePacks",
     }
   );
   return WritePacks;

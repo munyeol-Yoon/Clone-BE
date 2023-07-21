@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class DetailScraps extends Model {
     /**
@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       this.belongsTo(models.DetailPages, {
-        targetKey: 'detailsId',
-        foreignKey: 'detailsId',
+        targetKey: "detailsId",
+        foreignKey: "detailsId",
       });
 
       this.belongsTo(models.Users, {
-        targetKey: 'userId',
-        foreignKey: 'userId',
+        targetKey: "userId",
+        foreignKey: "userId",
       });
     }
   }
@@ -27,40 +27,40 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       userId: {
         allowNull: false,
-        type: sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: {
-          model: 'Users',
-          key: 'userId',
+          model: "Users",
+          key: "userId",
         },
-        onDelete: 'CASCADE',
+        onDelete: "CASCADE",
       },
       detailsId: {
         allowNull: false,
-        type: sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: {
-          model: 'DetailPages',
-          key: 'detailsId',
+          model: "DetailPages",
+          key: "detailsId",
         },
-        onDelete: 'CASCADE',
+        onDelete: "CASCADE",
       },
       createdAt: {
         allowNull: false,
-        defaultValue: sequelize.NOW,
-        type: sequelize.DATE,
+        defaultValue: DataTypes.NOW,
+        type: DataTypes.DATE,
       },
       updatedAt: {
         allowNull: false,
-        defaultValue: sequelize.NOW,
-        type: sequelize.DATE,
+        defaultValue: DataTypes.NOW,
+        type: DataTypes.DATE,
       },
     },
     {
       sequelize,
-      modelName: 'DetailScraps',
+      modelName: "DetailScraps",
     }
   );
   return DetailScraps;

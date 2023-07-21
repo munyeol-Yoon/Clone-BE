@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class DetailPages extends Model {
     /**
@@ -11,18 +11,18 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       this.hasMany(models.DetailScraps, {
-        sourceKey: 'detailsId',
-        foreignKey: 'detailsId',
+        sourceKey: "detailsId",
+        foreignKey: "detailsId",
       });
 
       this.hasMany(models.WritePacks, {
-        sourceKey: 'detailsId',
-        foreignKey: 'detailsId',
+        sourceKey: "detailsId",
+        foreignKey: "detailsId",
       });
 
       this.belongsTo(models.Users, {
-        targetKey: 'userId',
-        foreignKey: 'userId',
+        targetKey: "userId",
+        foreignKey: "userId",
       });
     }
   }
@@ -32,46 +32,46 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       userId: {
         allowNull: false,
-        type: sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: {
-          model: 'Users',
-          key: 'userId',
+          model: "Users",
+          key: "userId",
         },
-        onDelete: 'CASCADE',
+        onDelete: "CASCADE",
       },
       title: {
         allowNull: false,
-        type: sequelize.STRING,
+        type: DataTypes.STRING,
       },
       content: {
         allowNull: false,
-        type: sequelize.STRING,
+        type: DataTypes.STRING,
       },
       imgUrl: {
         allowNull: false,
-        type: sequelize.STRING,
+        type: DataTypes.STRING,
       },
       scrap: {
-        type: sequelize.INTEGER,
+        type: DataTypes.INTEGER,
       },
       createdAt: {
         allowNull: false,
-        defaultValue: sequelize.NOW,
-        type: sequelize.DATE,
+        defaultValue: DataTypes.NOW,
+        type: DataTypes.DATE,
       },
       updatedAt: {
         allowNull: false,
-        defaultValue: sequelize.NOW,
-        type: sequelize.DATE,
+        defaultValue: DataTypes.NOW,
+        type: DataTypes.DATE,
       },
     },
     {
       sequelize,
-      modelName: 'DetailPages',
+      modelName: "DetailPages",
     }
   );
   return DetailPages;
