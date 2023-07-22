@@ -1,5 +1,5 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class DetailPages extends Model {
     /**
@@ -10,19 +10,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      this.hasMany(models.DetailScraps, {
-        sourceKey: "detailsId",
-        foreignKey: "detailsId",
-      });
-
       this.hasMany(models.WritePacks, {
-        sourceKey: "detailsId",
-        foreignKey: "detailsId",
+        sourceKey: 'detailsId',
+        foreignKey: 'detailsId',
       });
 
       this.belongsTo(models.Users, {
-        targetKey: "userId",
-        foreignKey: "userId",
+        targetKey: 'userId',
+        foreignKey: 'userId',
       });
     }
   }
@@ -38,10 +33,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          model: "Users",
-          key: "userId",
+          model: 'Users',
+          key: 'userId',
         },
-        onDelete: "CASCADE",
+        onDelete: 'CASCADE',
       },
       title: {
         allowNull: false,
@@ -54,9 +49,6 @@ module.exports = (sequelize, DataTypes) => {
       imgUrl: {
         allowNull: false,
         type: DataTypes.STRING,
-      },
-      scrap: {
-        type: DataTypes.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -71,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "DetailPages",
+      modelName: 'DetailPages',
     }
   );
   return DetailPages;
