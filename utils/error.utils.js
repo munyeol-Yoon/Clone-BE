@@ -21,8 +21,16 @@ class ConflictError extends Error {
   }
 }
 
+class LoginError extends Error {
+  constructor(message) {
+    super(message);
+    this.statusCode = 401;
+  }
+}
+
 module.exports = {
   ServerError,
   BadRequestError,
   ConflictError,
+  LoginError,
 };
