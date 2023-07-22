@@ -27,6 +27,14 @@ module.exports = {
         },
         onDelete: 'CASCADE',
       },
+      coordinateX: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      coordinateY: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         defaultValue: Sequelize.NOW,

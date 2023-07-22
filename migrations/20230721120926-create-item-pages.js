@@ -18,11 +18,19 @@ module.exports = {
         },
         onDelete: 'CASCADE',
       },
+      brandName: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       itemName: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      imgUrl: {
+      rating: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      discount: {
         allowNull: false,
         type: Sequelize.STRING,
       },
@@ -30,8 +38,23 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      scrap: {
-        type: Sequelize.INTEGER,
+      discountPrice: {
+        //TODO: price 와 discount 에 의해 자동으로 입력하는 방법은 없을까?
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      benefit: {
+        //TODO: discountPrice * 0.001 에 의해 자동으로 입력하는 방법은 없을까?
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      lowPrice: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      highPirce: {
+        allowNull: false,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

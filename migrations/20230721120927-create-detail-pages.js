@@ -30,9 +30,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      scrap: {
-        type: Sequelize.INTEGER,
-      },
       createdAt: {
         allowNull: false,
         defaultValue: Sequelize.NOW,
