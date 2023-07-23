@@ -30,6 +30,8 @@ class LoginController {
           }
         );
 
+        res.cookie("Authorization", `Bearer ${token}`);
+
         return res.status(200).json({ message: "로그인 성공", token });
       });
     })(req, res, next);

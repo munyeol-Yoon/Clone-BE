@@ -12,6 +12,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
+        console.log(profile);
         const existUser = await Users.findOne({
           where: { kakaoId: profile.id },
         });
@@ -23,6 +24,9 @@ passport.use(
             email: profile._json && profile._json.kakao_account.email,
             nickname: profile.displayName,
             kakaoId: profile.id,
+            profileImgUrl:
+              profile._json &&
+              profile._json.kakao_account.profile.profile_image_url,
             providerType: "kakao",
           });
           done(null, newUser);

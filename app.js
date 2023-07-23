@@ -32,6 +32,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(kakaoPassport.initialize());
+app.use(kakaoPassport.session());
 
 app.get("/", (_, res) => {
   return res.send("HI");
