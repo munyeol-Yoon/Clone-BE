@@ -1,25 +1,25 @@
-require("dotenv").config();
+require('dotenv').config();
 
 const development = {
   username: process.env.MYSQL_USERNAME,
   password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABESE,
+  database: process.env.MYSQL_DATABASE,
   host: process.env.MYSQL_HOST,
-  dialect: "mysql",
+  dialect: 'mysql',
 };
 const test = {
   username: process.env.MYSQL_USERNAME,
   password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABESE,
+  database: process.env.MYSQL_DATABASE,
   host: process.env.MYSQL_HOST,
-  dialect: "mysql",
+  dialect: 'mysql',
 };
 const production = {
   username: process.env.MYSQL_USERNAME,
   password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABESE,
+  database: process.env.MYSQL_DATABASE,
   host: process.env.MYSQL_HOST,
-  dialect: "mysql",
+  dialect: 'mysql',
 };
 
 module.exports = {
