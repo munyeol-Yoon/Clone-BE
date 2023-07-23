@@ -2,11 +2,11 @@ const jwt = require("jsonwebtoken");
 const { Users } = require("../models");
 require("dotenv").config();
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
   try {
     const { Authorization } = req.cookies;
 
-    const [type, token] = (Authorization ?? "").split("");
+    const [type, token] = (Authorization ?? "").split(" ");
 
     if (!type || !token || type !== "Bearer") {
       return res
