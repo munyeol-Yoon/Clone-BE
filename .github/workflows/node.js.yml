@@ -38,10 +38,14 @@ jobs:
           echo MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }} >> .env
           echo AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} >> .env
           echo AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} >> .env
+          echo SESSION_SECRET=${{ secrets.SESSION_SECRET }} >> .env
+          echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env
+          echo KAKAO_ID=${{ secrets.KAKAO_ID }} >> .env
+          echo KAKAO_URL=${{ secrets.KAKAO_URL }} >> .env
           cat .env
 
       - name: zip file
-        run: zip -r CI.zip ./app.js ./.env ./models ./migrations ./config ./scripts ./appspec.yml ./package.json ./package-lock.json
+        run: zip -r CI.zip ./app.js ./.env ./models ./migrations ./config ./scripts ./appspec.yml ./package.json ./package-lock.json ./passport ./middlewares ./utils
 
       - name: AWS configure credentials
         uses: aws-actions/configure-aws-credentials@v1
