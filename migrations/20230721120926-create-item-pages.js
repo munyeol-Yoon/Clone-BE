@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('ItemPages', {
+    await queryInterface.createTable("ItemPages", {
       itemId: {
         allowNull: false,
         autoIncrement: true,
@@ -13,10 +13,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
-          key: 'userId',
+          model: "Users",
+          key: "userId",
         },
-        onDelete: 'CASCADE',
+        onDelete: "CASCADE",
       },
       brandName: {
         allowNull: false,
@@ -39,22 +39,16 @@ module.exports = {
         type: Sequelize.STRING,
       },
       discountPrice: {
-        //TODO: price 와 discount 에 의해 자동으로 입력하는 방법은 없을까?
         allowNull: false,
         type: Sequelize.STRING,
       },
       benefit: {
-        //TODO: discountPrice * 0.001 에 의해 자동으로 입력하는 방법은 없을까?
         allowNull: false,
         type: Sequelize.STRING,
       },
-      lowPrice: {
+      imgUrl: {
         allowNull: false,
-        type: Sequelize.STRING,
-      },
-      highPirce: {
-        allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(1024),
       },
       createdAt: {
         allowNull: false,
@@ -69,6 +63,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('ItemPages');
+    await queryInterface.dropTable("ItemPages");
   },
 };
