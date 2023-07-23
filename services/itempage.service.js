@@ -1,23 +1,54 @@
 const ItemPageRepository = require('../repositories/itempage.repository');
-const { ItemPages } = require('../models');
 
 class ItemPageService {
-  itemPageRepository = new ItemPageRepository(ItemPages);
+  itemPageRepository = new ItemPageRepository();
 
-  createItem = async (userId, itemName, price, imgUrl) => {
-    const item = await this.ItemPageRepository.createItem(userId, itemName, price, imgUrl);
-
-    return item;
+  findAllItem = async () => {
+    const allItems = await this.itemPageRepository.findAllItem();
+    // console.log('sevice : ' + JSON.stringify(allItems));
+    return allItems;
   };
 
-  updateItem = async (userId, itemId, itemName, price, imgUrl) => {
-    const updateItem = await this.ItemPageRepository.updateItem(userId, itemId, itemName, price, imgUrl);
+  createItem = async (userId, brandName, itemName, rating, discount, price, imgUrl) => {
+    const discountPrice = (Number(price) * ((100 - Number(discount)) * 0.01)).toString();
+    const benefit = Math.ceil(Number(discountPrice) * 0.001).toString();
+
+    const createItem = await this.itemPageRepository.createItem(
+      userId,
+      brandName,
+      itemName,
+      rating,
+      discount,
+      price,
+      discountPrice,
+      benefit,
+      imgUrl
+    );
+
+    return createItem;
+  };
+
+  updateItem = async (itemId, brandName, itemName, rating, discount, price, imgUrl) => {
+    const discountPrice = (Number(price) * ((100 - Number(discount)) * 0.01)).toString();
+    const benefit = Math.ceil(Number(discountPrice) * 0.001).toString();
+
+    const updateItem = await this.itemPageRepository.updateItem(
+      itemId,
+      brandName,
+      itemName,
+      rating,
+      discount,
+      price,
+      discountPrice,
+      benefit,
+      imgUrl
+    );
 
     return updateItem;
   };
 
   deleteItem = async (userId, itemId) => {
-    const deleteItem = await this.ItemPageRepository.deleteItem(userId, itemId);
+    const deleteItem = await this.itemPageRepository.deleteItem(userId, itemId);
 
     return deleteItem;
   };

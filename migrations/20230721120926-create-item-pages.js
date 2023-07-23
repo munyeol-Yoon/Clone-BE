@@ -39,20 +39,14 @@ module.exports = {
         type: Sequelize.STRING,
       },
       discountPrice: {
-        //TODO: price 와 discount 에 의해 자동으로 입력하는 방법은 없을까?
         allowNull: false,
         type: Sequelize.STRING,
       },
       benefit: {
-        //TODO: discountPrice * 0.001 에 의해 자동으로 입력하는 방법은 없을까?
         allowNull: false,
         type: Sequelize.STRING,
       },
-      lowPrice: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      highPirce: {
+      imgUrl: {
         allowNull: false,
         type: Sequelize.STRING,
       },
