@@ -16,11 +16,12 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
-      nickname: {
+      profileImgUrl: {
         type: Sequelize.STRING,
       },
-      scrap: {
-        type: Sequelize.INTEGER,
+      nickname: {
+        allowNull: false,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

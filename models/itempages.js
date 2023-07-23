@@ -1,5 +1,5 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ItemPages extends Model {
     /**
@@ -11,18 +11,28 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       this.hasMany(models.WritePacks, {
-        sourceKey: "itemId",
-        foreignKey: "itemId",
+        sourceKey: 'itemId',
+        foreignKey: 'itemId',
       });
 
-      this.hasMany(models.ItemScraps, {
-        sourceKey: "itemId",
-        foreignKey: "itemId",
+      this.hasMany(models.ColorOptions, {
+        sourceKey: 'itemId',
+        foreignKey: 'itemId',
+      });
+
+      this.hasMany(models.SizeOptions, {
+        sourceKey: 'itemId',
+        foreignKey: 'itemId',
+      });
+
+      this.hasMany(models.ItemImgList, {
+        sourceKey: 'itemId',
+        foreignKey: 'itemId',
       });
 
       this.belongsTo(models.Users, {
-        targetKey: "userId",
-        foreignKey: "userId",
+        targetKey: 'userId',
+        foreignKey: 'userId',
       });
     }
   }
@@ -38,16 +48,24 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          model: "Users",
-          key: "userId",
+          model: 'Users',
+          key: 'userId',
         },
-        onDelete: "CASCADE",
+        onDelete: 'CASCADE',
+      },
+      brandName: {
+        allowNull: false,
+        type: DataTypes.STRING,
       },
       itemName: {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      imgUrl: {
+      rating: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      discount: {
         allowNull: false,
         type: DataTypes.STRING,
       },
@@ -55,8 +73,23 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      scrap: {
-        type: DataTypes.INTEGER,
+      discountPrice: {
+        //TODO: price 와 discount 에 의해 자동으로 입력하는 방법은 없을까?
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      benefit: {
+        //TODO: discountPrice * 0.001 에 의해 자동으로 입력하는 방법은 없을까?
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      lowPrice: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      highPirce: {
+        allowNull: false,
+        type: DataTypes.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -71,7 +104,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "ItemPages",
+      modelName: 'ItemPages',
     }
   );
   return ItemPages;

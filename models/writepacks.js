@@ -1,5 +1,5 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class WritePacks extends Model {
     /**
@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       this.belongsTo(models.DetailPages, {
-        targetkey: "detailsId",
-        foreignKey: "detailsId",
+        targetkey: 'detailsId',
+        foreignKey: 'detailsId',
       });
 
       this.belongsTo(models.ItemPages, {
-        targetkey: "itemId",
-        foreignKey: "itemId",
+        targetkey: 'itemId',
+        foreignKey: 'itemId',
       });
     }
   }
@@ -33,19 +33,27 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          models: "DetailPages",
-          key: "detailsId",
+          model: 'DetailPages',
+          key: 'detailsId',
         },
-        onDelete: "CASCADE",
+        onDelete: 'CASCADE',
       },
       itemId: {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          models: "ItemPages",
-          key: "itemId",
+          model: 'ItemPages',
+          key: 'itemId',
         },
-        onDelete: "CASCADE",
+        onDelete: 'CASCADE',
+      },
+      coordinateX: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+      },
+      coordinateY: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -60,7 +68,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "WritePacks",
+      modelName: 'WritePacks',
     }
   );
   return WritePacks;
