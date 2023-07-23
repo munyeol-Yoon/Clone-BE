@@ -1,5 +1,7 @@
 const express = require('express');
 
+//! 필수사항: 관리자만 CUD 할 수 있도록 미들웨어 통과시키기 ( 문열님 작업 이후 )
+// const authMiddleware = require();
 const ItemPageController = require('../controllers/itempage.controller');
 const itemPageController = new ItemPageController();
 
