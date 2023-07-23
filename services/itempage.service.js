@@ -1,23 +1,56 @@
 const ItemPageRepository = require('../repositories/itempage.repository');
-const { ItemPages } = require('../models');
 
 class ItemPageService {
-  itemPageRepository = new ItemPageRepository(ItemPages);
+  itemPageRepository = new ItemPageRepository();
 
-  createItem = async (userId, itemName, price, imgUrl) => {
-    const item = await this.ItemPageRepository.createItem(userId, itemName, price, imgUrl);
-
-    return item;
+  // 상품 전체 조회
+  findAllItem = async () => {
+    const allItems = await this.itemPageRepository.findAllItem();
+    return allItems;
   };
 
-  updateItem = async (userId, itemId, itemName, price, imgUrl) => {
-    const updateItem = await this.ItemPageRepository.updateItem(userId, itemId, itemName, price, imgUrl);
+  // 상품 생성
+  createItem = async (userId, brandName, itemName, rating, discount, price) => {
+    const discountPrice = (Number(price) * ((100 - Number(discount)) * 0.01)).toString();
+    const benefit = Math.ceil(Number(discountPrice) * 0.001).toString();
+
+    const createItem = await this.itemPageRepository.createItem(
+      userId,
+      brandName,
+      itemName,
+      rating,
+      discount,
+      price,
+      discountPrice,
+      benefit
+    );
+
+    return createItem;
+  };
+
+  // 상품 수정
+  updateItem = async (userId, itemId, brandName, itemName, rating, discount, price) => {
+    const discountPrice = (Number(price) * ((100 - Number(discount)) * 0.01)).toString();
+    const benefit = Math.ceil(Number(discountPrice) * 0.001).toString();
+
+    const updateItem = await this.itemPageRepository.updateItem(
+      userId,
+      itemId,
+      brandName,
+      itemName,
+      rating,
+      discount,
+      price,
+      discountPrice,
+      benefit
+    );
 
     return updateItem;
   };
 
+  // 상품 삭제
   deleteItem = async (userId, itemId) => {
-    const deleteItem = await this.ItemPageRepository.deleteItem(userId, itemId);
+    const deleteItem = await this.itemPageRepository.deleteItem(userId, itemId);
 
     return deleteItem;
   };

@@ -19,7 +19,7 @@ module.exports = {
       },
       itemImg: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(1024),
       },
     });
   },

@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("ItemPages", {
+    await queryInterface.createTable('ItemPages', {
       itemId: {
         allowNull: false,
         autoIncrement: true,
@@ -13,10 +13,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: "Users",
-          key: "userId",
+          model: 'Users',
+          key: 'userId',
         },
-        onDelete: "CASCADE",
+        onDelete: 'CASCADE',
       },
       brandName: {
         allowNull: false,
@@ -46,10 +46,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      imgUrl: {
-        allowNull: false,
-        type: Sequelize.STRING(1024),
-      },
       createdAt: {
         allowNull: false,
         defaultValue: Sequelize.NOW,
@@ -63,6 +59,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("ItemPages");
+    await queryInterface.dropTable('ItemPages');
   },
 };
