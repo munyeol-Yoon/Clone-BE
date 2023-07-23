@@ -2,6 +2,9 @@ const express = require("express");
 const morgan = require("morgan");
 const session = require("express-session");
 const passport = require("./passport/local-passport");
+const kakaoPassport = require("./passport/kakao-passport");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const indexRouter = require("./routes");
 require("dotenv").config();
@@ -9,6 +12,7 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(
   session({
     secret: process.env.SESSION_SECRET, // 세션 ID 를 서명하는데 사용되는 키
@@ -25,6 +29,7 @@ app.use(
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
