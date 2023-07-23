@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { ItemPages } = require('../models');
+const { ItemPages, ColorOptions, SizeOptions, ItemImgLists } = require('../models');
 
 class ItemPageRepository {
   // 상품 전체 조회
@@ -16,8 +16,25 @@ class ItemPageRepository {
         'discountprice',
         'benefit',
       ],
+      include: [
+        {
+          model: ColorOptions,
+          attributes: ['color'],
+          required: true,
+        },
+        {
+          model: SizeOptions,
+          attributes: ['size'],
+          required: true,
+        },
+        {
+          model: ItemImgLists,
+          attributes: ['itemImg'],
+          require: true,
+        },
+      ],
     });
-
+    console.log(items);
     return items;
   };
 
