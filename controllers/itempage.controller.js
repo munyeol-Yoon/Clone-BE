@@ -1,5 +1,4 @@
 const ItemPageService = require('../services/itempage.service');
-// const { itempageEH } = require('../eh/itempage.eh');
 
 class ItemPageController {
   itemPageService = new ItemPageService();
