@@ -1,27 +1,28 @@
+const { Op } = require('sequelize');
 const { ItemPages } = require('../models');
 
 class ItemPageRepository {
+  // 상품 전체 조회
   findAllItem = async () => {
-    const items = await ItemPages
-      .findAll
-      // attributes: [
-      //   'itemId',
-      //   'userId',
-      //   'brandName',
-      //   'itemName',
-      //   'rating',
-      //   'discount',
-      //   'price',
-      //   'discountprice',
-      //   'benefit',
-      //   'imgUrl',
-      // ],
-      ();
-    // console.log('repo : ' + JSON.stringify(items));
+    const items = await ItemPages.findAll({
+      attributes: [
+        'itemId',
+        'userId',
+        'brandName',
+        'itemName',
+        'rating',
+        'discount',
+        'price',
+        'discountprice',
+        'benefit',
+      ],
+    });
+
     return items;
   };
 
-  createItem = async (userId, brandName, itemName, rating, discount, price, discountPrice, benefit, imgUrl) => {
+  // 상품 생성
+  createItem = async (userId, brandName, itemName, rating, discount, price, discountPrice, benefit) => {
     const createItem = await ItemPages.create({
       userId,
       brandName,
@@ -31,21 +32,22 @@ class ItemPageRepository {
       price,
       discountPrice,
       benefit,
-      imgUrl,
     });
 
     return createItem;
   };
 
-  updateItem = async (itemId, brandName, itemName, rating, discount, price, discountPrice, benefit, imgUrl) => {
+  // 상품 수정
+  updateItem = async (userId, itemId, brandName, itemName, rating, discount, price, discountPrice, benefit) => {
     const updateItem = await ItemPages.update(
-      { itemId, brandName, itemName, rating, discount, price, discountPrice, benefit, imgUrl },
-      { where: { itemId } }
+      { brandName, itemName, rating, discount, price, discountPrice, benefit },
+      { where: { [Op.and]: [{ userId: userId }, { itemId: itemId }] } }
     );
 
     return updateItem;
   };
 
+  // 상품 삭제
   deleteItem = async (userId, itemId) => {
     const deleteItem = await ItemPages.destroy({ where: { [Op.and]: [{ userId: userId }, { itemId: itemId }] } });
 

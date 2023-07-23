@@ -46,10 +46,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      imgUrl: {
-        allowNull: false,
-        type: Sequelize.STRING(1024),
-      },
       createdAt: {
         allowNull: false,
         defaultValue: Sequelize.NOW,

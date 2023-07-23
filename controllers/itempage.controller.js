@@ -4,14 +4,21 @@ const ItemPageService = require('../services/itempage.service');
 class ItemPageController {
   itemPageService = new ItemPageService();
 
-  findAllItem = async () => {
-    const allItems = await this.itemPageService.findAllItem();
-    // console.log('cont : ' + JSON.stringify(allItems));
-    return allItems;
+  // 상품 전체 조회
+  findAllItem = async (req, res) => {
+    try {
+      const allItems = await this.itemPageService.findAllItem();
+
+      res.status(200).json({ allItems });
+    } catch (err) {
+      console.error(err);
+      return res.status(400).json({ errorMessage: '상품 전체 목록 조회에 실패하였습니다.' });
+    }
   };
 
+  // 상품 생성
   createItem = async (req, res) => {
-    let { brandName, itemName, rating, discount, price, imgUrl } = req.body;
+    let { brandName, itemName, rating, discount, price } = req.body;
     // const { userId } = res.locals.user;
 
     try {
@@ -19,9 +26,7 @@ class ItemPageController {
       //   res.status(400).json({ errorMessage: '상품 생성은 관리자만 가능합니다.' });
       // }
 
-      // imgUrl = JSON.stringify(imgUrl);
-
-      const createItem = await this.itemPageService.createItem(1, brandName, itemName, rating, discount, price, imgUrl);
+      const createItem = await this.itemPageService.createItem(1, brandName, itemName, rating, discount, price);
 
       return res.status(200).json({ message: '상품이 등록되었습니다.' });
     } catch (err) {
@@ -30,8 +35,9 @@ class ItemPageController {
     }
   };
 
+  // 상품 수정
   updateItem = async (req, res) => {
-    const { brandName, itemName, rating, discount, price, imgUrl } = req.body;
+    const { brandName, itemName, rating, discount, price } = req.body;
     const { itemId } = req.params;
     // const { userId } = res.locals.user;
 
@@ -40,17 +46,7 @@ class ItemPageController {
       //   res.status(400).json({ errorMessage: '상품 수정은 관리자만 가능합니다.' });
       // }
 
-      imgUrl = JSON.stringify(imgUrl);
-
-      const updateItem = await this.itemPageService.updateItem(
-        itemId,
-        brandName,
-        itemName,
-        rating,
-        discount,
-        price,
-        imgUrl
-      );
+      const updateItem = await this.itemPageService.updateItem(1, itemId, brandName, itemName, rating, discount, price);
 
       return res.status(200).json({ message: '상품 정보가 수정되었습니다.' });
     } catch (err) {
@@ -59,6 +55,7 @@ class ItemPageController {
     }
   };
 
+  // 상품 삭제
   deleteItem = async (req, res) => {
     const { itemId } = req.params;
     // const { userId } = res.locals.user;
@@ -68,7 +65,7 @@ class ItemPageController {
       //   res.status(400).json({ errorMessage: '상품 삭제는 관리자만 가능합니다.' });
       // }
 
-      const deleteItem = await this.itemPageService.deleteItem(userId, itemId);
+      const deleteItem = await this.itemPageService.deleteItem(1, itemId);
 
       return res.status(200).json({ message: '상품이 삭제되었습니다.' });
     } catch (err) {
