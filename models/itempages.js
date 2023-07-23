@@ -1,5 +1,5 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ItemPages extends Model {
     /**
@@ -11,28 +11,28 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
 
       this.hasMany(models.WritePacks, {
-        sourceKey: "itemId",
-        foreignKey: "itemId",
+        sourceKey: 'itemId',
+        foreignKey: 'itemId',
       });
 
       this.hasMany(models.ColorOptions, {
-        sourceKey: "itemId",
-        foreignKey: "itemId",
+        sourceKey: 'itemId',
+        foreignKey: 'itemId',
       });
 
       this.hasMany(models.SizeOptions, {
-        sourceKey: "itemId",
-        foreignKey: "itemId",
+        sourceKey: 'itemId',
+        foreignKey: 'itemId',
       });
 
       this.hasMany(models.ItemImgList, {
-        sourceKey: "itemId",
-        foreignKey: "itemId",
+        sourceKey: 'itemId',
+        foreignKey: 'itemId',
       });
 
       this.belongsTo(models.Users, {
-        targetKey: "userId",
-        foreignKey: "userId",
+        targetKey: 'userId',
+        foreignKey: 'userId',
       });
     }
   }
@@ -48,10 +48,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.INTEGER,
         references: {
-          model: "Users",
-          key: "userId",
+          model: 'Users',
+          key: 'userId',
         },
-        onDelete: "CASCADE",
+        onDelete: 'CASCADE',
       },
       brandName: {
         allowNull: false,
@@ -81,10 +81,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      imgUrl: {
-        allowNull: false,
-        type: DataTypes.STRING(1024),
-      },
       createdAt: {
         allowNull: false,
         defaultValue: DataTypes.NOW,
@@ -98,7 +94,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "ItemPages",
+      modelName: 'ItemPages',
     }
   );
   return ItemPages;
