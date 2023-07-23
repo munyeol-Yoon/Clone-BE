@@ -5,17 +5,7 @@ class ItemPageRepository {
   // 상품 전체 조회
   findAllItem = async () => {
     const items = await ItemPages.findAll({
-      attributes: [
-        'itemId',
-        'userId',
-        'brandName',
-        'itemName',
-        'rating',
-        'discount',
-        'price',
-        'discountprice',
-        'benefit',
-      ],
+      attributes: ['itemId', 'brandName', 'itemName', 'rating', 'discount', 'price', 'discountprice', 'benefit'],
       include: [
         {
           model: ColorOptions,
@@ -34,7 +24,6 @@ class ItemPageRepository {
         },
       ],
     });
-    console.log(items);
     return items;
   };
 
