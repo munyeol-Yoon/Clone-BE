@@ -23,9 +23,7 @@ router.get(
 
     // JWT를 쿠키에 담아 클라이언트에게 전달
     res.cookie("cowdog", `Bearer ${token}`);
-    res.redirect(
-      "https://vercel.com/kang-gyeongwon/lv3-ui-components/96p8HXnVpFmpX4BsbLvzTbYz6Dht"
-    );
+    res.redirect("https://lv3-ui-components.vercel.app/");
   }
 );
 
