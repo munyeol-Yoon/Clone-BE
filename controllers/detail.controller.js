@@ -2,6 +2,18 @@ const DetailService = require("../services/detail.service");
 
 class DetailController {
   detailService = new DetailService();
+  //메인 페이지
+  findAlldetail = async (req, res, next) => {
+    try {
+      const main = await this.detailService.findAlldetail()
+
+      return res.status(201).json({ main });
+
+    } catch (error) {
+      if (error.status) return res.status(error.status).json({ errorMessage: error.message });
+      res.json({ errorMessage: error.message });
+    }
+  }
 
   // 이미지 업로드
   createImage = async (req, res, next) => {
