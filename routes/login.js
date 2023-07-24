@@ -22,8 +22,8 @@ router.get(
     });
 
     // JWT를 쿠키에 담아 클라이언트에게 전달
-    res.cookie("Authorization", `Bearer ${token}`);
-    res.redirect("/");
+    res.cookie("cowdog", `Bearer ${token}`);
+    res.redirect("https://www.google.com/");
   }
 );
 

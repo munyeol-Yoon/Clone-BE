@@ -30,7 +30,7 @@ class LoginController {
           }
         );
 
-        res.cookie("Authorization", `Bearer ${token}`);
+        res.cookie("cowdog", `Bearer ${token}`);
 
         return res.status(200).json({ message: "로그인 성공", token });
       });

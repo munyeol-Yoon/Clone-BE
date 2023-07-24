@@ -4,9 +4,9 @@ require("dotenv").config();
 
 module.exports = async (req, res, next) => {
   try {
-    const { Authorization } = req.cookies;
+    const { cowdog } = req.cookies;
 
-    const [type, token] = (Authorization ?? "").split(" ");
+    const [type, token] = (cowdog ?? "").split(" ");
 
     if (!type || !token || type !== "Bearer") {
       return res
