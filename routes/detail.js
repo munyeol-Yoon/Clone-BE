@@ -5,7 +5,7 @@ const detailController = new DetailController();
 
 const router = express.Router();
 
-router.get('/'); // 메인페이지
+router.get('/main', detailController.findAlldetail); // 메인페이지
 router.post('/', authMiddleware, detailController.createDetail); // 집사진 상세 생성
 router.get('/:detailsId', detailController.getDetailOne); // 집사진 상세 조회
 router.put('/:detailsId', authMiddleware, detailController.updateDetail); // 집사진 상세 수정

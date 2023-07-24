@@ -2,6 +2,10 @@ const DetailRepository = require('../repositories/detail.repository');
 
 class DetailService {
   detailRepository = new DetailRepository();
+  findAlldetail = async () => {
+    const main = await this.detailRepository.findAlldetail()
+    return main
+  }
 
   // 집사진 생성
   createDetail = async (userId, content, imgUrl, itemData) => {
