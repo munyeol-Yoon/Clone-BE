@@ -1,5 +1,6 @@
 const express = require("express");
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
 
 const LoginController = require("../controllers/login.controller");
 const loginController = new LoginController();
@@ -13,7 +14,15 @@ router.get(
   "/kakao/callback",
   passport.authenticate("kakao", { failureRedirect: "/login" }),
   (req, res) => {
-    // 인증이 성공하면 리다이렉트 경로를 설정
+    const user = req.user;
+
+    // JWT 생성
+    const token = jwt.sign({ userId: user.userId }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    // JWT를 쿠키에 담아 클라이언트에게 전달
+    res.cookie("Authorization", `Bearer ${token}`);
     res.redirect("/");
   }
 );
