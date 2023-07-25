@@ -4,26 +4,27 @@ class RegisterService {
   registerRepository = new RegisterRepository();
   createUser = async (email, nickname, password) => {
     const images = [
-      "https://clone-be-bucket.s3.ap-northeast-2.amazonaws.com/upload/usick.jpeg",
-      "https://clone-be-bucket.s3.ap-northeast-2.amazonaws.com/upload/suhwa.jpeg",
-      "https://clone-be-bucket.s3.ap-northeast-2.amazonaws.com/upload/sonsuckgu.jpeg",
-      "https://clone-be-bucket.s3.ap-northeast-2.amazonaws.com/upload/newminji.jpeg",
-      "https://clone-be-bucket.s3.ap-northeast-2.amazonaws.com/upload/newhani.jpeg",
-      "https://clone-be-bucket.s3.ap-northeast-2.amazonaws.com/upload/newhaeryn.jpeg",
-      "https://clone-be-bucket.s3.ap-northeast-2.amazonaws.com/upload/newhaein.jpeg",
-      "https://clone-be-bucket.s3.ap-northeast-2.amazonaws.com/upload/newdanial.jpeg",
-      "https://clone-be-bucket.s3.ap-northeast-2.amazonaws.com/upload/minsick.jpeg",
-      "https://clone-be-bucket.s3.ap-northeast-2.amazonaws.com/upload/madongsuck3.jpeg",
-      "https://clone-be-bucket.s3.ap-northeast-2.amazonaws.com/upload/chacha.jpeg",
+      "usick.jpeg",
+      "suhwa.jpeg",
+      "sonsuckgu.jpeg",
+      "newminji.jpeg",
+      "newhani.jpeg",
+      "newhaeryn.jpeg",
+      "newhaein.jpeg",
+      "newdanial.jpeg",
+      "minsick.jpeg",
+      "madongsuck3.jpeg",
+      "chacha.jpeg",
     ];
 
     const randomImage = images[Math.floor(Math.random() * images.length)];
+    const profileImgUrl = `https://clone-be-bucket.s3.ap-northeast-2.amazonaws.com/upload/${randomImage}`;
 
     const createUser = await this.registerRepository.createUser(
       email,
       nickname,
       password,
-      randomImage
+      profileImgUrl
     );
 
     return createUser;
