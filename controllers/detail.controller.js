@@ -22,7 +22,6 @@ class DetailController {
   createDetail = async (req, res, next) => {
     try {
       const { userId } = res.locals.user;
-      console.log(req.body)
       const { content, itemData, imgUrl } = await detailValidation.validateAsync(req.body);
 
       const details = await this.detailService.createDetail(
