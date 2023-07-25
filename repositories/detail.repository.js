@@ -3,34 +3,18 @@ const sequelize = require('sequelize');
 const { Op } = require('sequelize');
 
 class DetailRepository {
-  findAlldetail = async () => {
-    const main = await DetailPages.findAll({
-      attributes: ['detailsId', 'imgUrl'],
-      raw: true,
-      include: [
-        {
-          model: Users,
-          attributes: ['nickname', 'profileImgUrl', 'createdAt'],
-        },
-      ],
-    })
-    return main
-  }
-  // 유저 권한 조회
+
+  // 생성 권한 조회
   userCheek = async (userId) => {
     const userCheek = await Users.findOne({ where: userId })
-    if (!userCheek) {
-      const error = new Error('집사진의 생성 권한이 없습니다.'); // ERROR 생성자를 통해 message 전달
-      error.status = 403; // ERROR 객체를 통해서 Status 추가
-      throw error;
-    }
+    return userCheek
   }
-  // 집사진 만들기
+  // 집사진 생성
   createDetail = async (userId, content, imgUrl) => {
     const derail = await DetailPages.create({ userId, content, imgUrl });
     return derail;
   }
-  // 집사진-상품 테이블 만들기 
+  // 집사진-상품 데이터 생성
   createWritePack = async (itemData, detailsId) => {
     const writePackArray = itemData.map((item) => {
       return {
@@ -44,7 +28,7 @@ class DetailRepository {
     return writePack
   }
 
-  // 집사진에 들어갈 아이템 구하기
+  // 집사진에 포함된 아이템 구하기
   findItemId = async (detailsId) => {
     const itemId = await WritePacks.findAll({
       attributes: ['itemId'],
@@ -116,16 +100,18 @@ class DetailRepository {
     return details
   }
   // 기존 데이터 제거
-  deteleWritePack = async (detailsId) => {
-    const deteleWritePack = await WritePacks.destroy({ where: { detailsId } })
-    return deteleWritePack
+  deleteWritePack = async (detailsId) => {
+    const deleteWritePack = await WritePacks.destroy({ where: { detailsId } })
+    return deleteWritePack
   }
-  // 새로운 데이터 생성
-  updeateWritePack = async (detailsId, itemId) => {
-    const writePackArray = itemId.map((id) => {
+  // 수정된 새로운 데이터 생성
+  updeateWritePack = async (detailsId, itemData) => {
+    const writePackArray = itemData.map((item) => {
       return {
         detailsId,
-        itemId: id
+        itemId: item.itemId,
+        coordinateX: item.x,
+        coordinateY: item.y
       }
     })
     const updeateWritePack = await WritePacks.bulkCreate(writePackArray)

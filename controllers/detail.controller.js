@@ -1,19 +1,10 @@
 const DetailService = require("../services/detail.service");
 
+const { detailValidation } = require('../validations/detail.validation')
+// 스키마
+
 class DetailController {
   detailService = new DetailService();
-  //메인 페이지
-  findAlldetail = async (req, res, next) => {
-    try {
-      const main = await this.detailService.findAlldetail()
-
-      return res.status(201).json({ main });
-
-    } catch (error) {
-      if (error.status) return res.status(error.status).json({ errorMessage: error.message });
-      res.json({ errorMessage: error.message });
-    }
-  }
 
   // 이미지 업로드
   createImage = async (req, res, next) => {
@@ -31,7 +22,7 @@ class DetailController {
   createDetail = async (req, res, next) => {
     try {
       const { userId } = res.locals.user;
-      const { content, imgUrl, itemData } = req.body;
+      const { content, imgUrl, itemData } = await detailValidation.validateAsync(req.body)
       const details = await this.detailService.createDetail(
         userId,
         content,
@@ -43,6 +34,7 @@ class DetailController {
     } catch (error) {
       if (error.status)
         return res.status(error.status).json({ errorMessage: error.message });
+      if (error.isJoi) return res.status(409).json({ errorMessage: err.message })
       res.json({ errorMessage: error.message });
     }
   };
@@ -65,19 +57,22 @@ class DetailController {
   // 집사진 수정
   updateDetail = async (req, res, next) => {
     try {
+      const { userId } = res.locals.user;
       const { detailsId } = req.params;
-      const { content, imgUrl, itemId } = req.body;
+      const { content, imgUrl, itemData } = await detailValidation.validateAsync(req.body);
       const details = await this.detailService.updateDetail(
+        userId,
         detailsId,
         content,
         imgUrl,
-        itemId
+        itemData
       );
 
-      res.status(200).json({ Message: "집사진을 수정하였습니다" });
+      res.status(200).json({ details });
     } catch (error) {
       if (error.status)
         return res.status(error.status).json({ errorMessage: error.message });
+      if (error.isJoi) return res.status(409).json({ errorMessage: err.message })
       res.json({ errorMessage: error.message });
     }
   };
@@ -85,8 +80,9 @@ class DetailController {
   // 집사진 삭제
   deleteDetail = async (req, res, next) => {
     try {
+      const { userId } = res.locals.user;
       const { detailsId } = req.params;
-      const details = await this.detailService.deleteDetail(detailsId);
+      const details = await this.detailService.deleteDetail(userId, detailsId);
       res.status(200).json({ Message: "집사진을 삭제하였습니다" });
     } catch (error) {
       if (error.status)
