@@ -29,7 +29,7 @@ const optionsModels = joi.object(
   optionField.reduce((option, fieldName) => {
     option[fieldName] = optionValidation;
     return option;
-  })
+  }, {})
 );
 
 // 상품페이지 > 상품이미지
