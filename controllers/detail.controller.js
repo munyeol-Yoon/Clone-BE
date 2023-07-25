@@ -53,16 +53,18 @@ class DetailController {
   // 집사진 수정
   updateDetail = async (req, res, next) => {
     try {
+      const { userId } = res.locals.user;
       const { detailsId } = req.params;
-      const { content, imgUrl, itemId } = req.body;
+      const { content, imgUrl, itemData } = req.body;
       const details = await this.detailService.updateDetail(
+        userId,
         detailsId,
         content,
         imgUrl,
-        itemId
+        itemData
       );
 
-      res.status(200).json({ Message: "집사진을 수정하였습니다" });
+      res.status(200).json({ details });
     } catch (error) {
       if (error.status)
         return res.status(error.status).json({ errorMessage: error.message });

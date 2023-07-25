@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 
 class DetailRepository {
 
-  // 유저 권한 조회
+  // 생성 권한 조회
   userCheek = async (userId) => {
     const userCheek = await Users.findOne({ where: userId })
     if (!userCheek) {
@@ -104,16 +104,18 @@ class DetailRepository {
     return details
   }
   // 기존 데이터 제거
-  deteleWritePack = async (detailsId) => {
-    const deteleWritePack = await WritePacks.destroy({ where: { detailsId } })
-    return deteleWritePack
+  deleteWritePack = async (detailsId) => {
+    const deleteWritePack = await WritePacks.destroy({ where: { detailsId } })
+    return deleteWritePack
   }
-  // 새로운 데이터 생성
-  updeateWritePack = async (detailsId, itemId) => {
-    const writePackArray = itemId.map((id) => {
+  // 수정된 새로운 데이터 생성
+  updeateWritePack = async (detailsId, itemData) => {
+    const writePackArray = itemData.map((item) => {
       return {
         detailsId,
-        itemId: id
+        itemId: item.itemId,
+        coordinateX: item.x,
+        coordinateY: item.y
       }
     })
     const updeateWritePack = await WritePacks.bulkCreate(writePackArray)

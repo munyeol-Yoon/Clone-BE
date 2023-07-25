@@ -22,6 +22,7 @@ class DetailService {
     }
   };
   // 집사진 상세 조회
+
   // 집사진에 들어갈 아이템 ID 구하기
   findOneDetail = async (detailsId,) => {
     const itemIds = await this.detailRepository.findItemId(detailsId);
@@ -39,7 +40,7 @@ class DetailService {
   };
 
   // 집사진 수정 - fix 필요함
-  updateDetail = async (detailsId, content, imgUrl, itemId) => {
+  updateDetail = async (userId, detailsId, content, imgUrl, itemData) => {
     try {
       //! 집사진이 없을 경우
       const checkdetail = await this.detailRepository.checkDetail(detailsId)
@@ -48,9 +49,15 @@ class DetailService {
         error.status = 404
         throw error;
       }
+      console.log(checkdetail.userId !== userId)
+      if (checkdetail.userId !== userId) {
+        const error = new Error('글쓴이가 아닙니다.');
+        error.status = 404
+        throw error;
+      }
       const details = await this.detailRepository.updateDetail(detailsId, content, imgUrl)
-      const deteleWritePack = await this.detailRepository.deteleWritePack(detailsId)
-      const writePack = await this.detailRepository.updeateWritePack(detailsId, itemId)
+      const deleteWritePack = await this.detailRepository.deleteWritePack(detailsId)
+      const writePack = await this.detailRepository.updeateWritePack(detailsId, itemData)
 
       return details, writePack
     } catch (err) {
