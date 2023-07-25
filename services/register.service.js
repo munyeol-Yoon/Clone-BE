@@ -14,7 +14,16 @@ class RegisterService {
       "newdanial.jpeg",
       "minsick.jpeg",
       "madongsuck3.jpeg",
+      "madongsuck2.jpeg",
+      "madongsuck1.jpeg",
       "chacha.jpeg",
+      "dongil.jpeg",
+      "dongil2.jpeg",
+      "hyomanager.png",
+      "saemanager.png",
+      "bumgyuzzing.jpeg",
+      "bumgyuzzing2.jpeg",
+      "bumgyuzzing3.jpeg",
     ];
 
     const randomImage = images[Math.floor(Math.random() * images.length)];
