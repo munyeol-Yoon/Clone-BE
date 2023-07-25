@@ -6,6 +6,7 @@ class MainRepository {
     const main = await DetailPages.findAll({
       attributes: ['detailsId', 'imgUrl'],
       raw: true,
+      order: [['updatedAt', 'DESC']],
       include: [
         {
           model: Users,
