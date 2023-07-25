@@ -15,6 +15,7 @@ const PORT = process.env.PORT || 3000;
 const corsOptions = {
   origin: "*", // 특정 도메인 허용
   credentials: true, // 'withCredentials'를 true로 설정
+  allowedHeaders: ["Content-Type", "cowdog"],
 };
 
 app.use(cors(corsOptions));
