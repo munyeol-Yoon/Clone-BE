@@ -22,7 +22,9 @@ class DetailController {
   createDetail = async (req, res, next) => {
     try {
       const { userId } = res.locals.user;
-      const { content, imgUrl, itemData } = await detailValidation.validateAsync(req.body)
+      console.log(req.body)
+      const { content, itemData, imgUrl } = await detailValidation.validateAsync(req.body);
+
       const details = await this.detailService.createDetail(
         userId,
         content,
@@ -32,9 +34,14 @@ class DetailController {
 
       return res.status(201).json({ details });
     } catch (error) {
-      if (error.status)
+      console.log(error)
+      if (error.isJoi) {
+        return res.status(409).json({ errorMessage: error.message })
+      }
+      if (error.status) {
+
         return res.status(error.status).json({ errorMessage: error.message });
-      if (error.isJoi) return res.status(409).json({ errorMessage: err.message })
+      }
       res.json({ errorMessage: error.message });
     }
   };
@@ -68,11 +75,11 @@ class DetailController {
         itemData
       );
 
-      res.status(200).json({ details });
+      res.status(200).json({ Message: "포스트를 생성하였습니다" });
     } catch (error) {
       if (error.status)
         return res.status(error.status).json({ errorMessage: error.message });
-      if (error.isJoi) return res.status(409).json({ errorMessage: err.message })
+      if (error.isJoi) return res.status(409).json({ errorMessage: error.detail[0].message })
       res.json({ errorMessage: error.message });
     }
   };
@@ -83,7 +90,7 @@ class DetailController {
       const { userId } = res.locals.user;
       const { detailsId } = req.params;
       const details = await this.detailService.deleteDetail(userId, detailsId);
-      res.status(200).json({ Message: "집사진을 삭제하였습니다" });
+      res.status(200).json({ Message: "포스트를 삭제하였습니다" });
     } catch (error) {
       if (error.status)
         return res.status(error.status).json({ errorMessage: error.message });
