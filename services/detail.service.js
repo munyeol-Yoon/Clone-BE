@@ -1,22 +1,31 @@
 const DetailRepository = require('../repositories/detail.repository');
+const { sequelize } = require("../models/index.js");
+const { Transaction } = require("sequelize");
 
 class DetailService {
   detailRepository = new DetailRepository();
 
   // 집사진 생성
   createDetail = async (userId, content, imgUrl, itemData) => {
+    const t = await sequelize.transaction({
+      isolationLevel: Transaction.ISOLATION_LEVELS.READ_COMMITTED,
+    });
+
     try {
-      // 이후에 트렌젝션 묶음
-      const userCheek = this.detailRepository.userCheek(userId);
-
-      const detail = await this.detailRepository.createDetail(userId, content, imgUrl);
+      const userCheek = await this.detailRepository.userCheek(userId, { transaction: t });
+      const detail = await this.detailRepository.createDetail(userId, content, imgUrl, { transaction: t });
       if (!itemData) {
-        return detail
+        await t.commit();
+        return detail;
       }
-      const writepack = await this.detailRepository.createWritePack(itemData, detail.detailsId)
 
-      return detail
+      const writepack = await this.detailRepository.createWritePack(itemData, detail.detailsId, { transaction: t });
+
+      await t.commit();
+      return detail;
+
     } catch (error) {
+      await t.rollback();
       console.log(error);
       throw error;
     }
@@ -38,8 +47,7 @@ class DetailService {
     }
     return [details, userData, itemData]
   };
-
-  // 집사진 수정 - fix 필요함
+  // 집사진 수정 
   updateDetail = async (userId, detailsId, content, imgUrl, itemData) => {
     try {
       //! 집사진이 없을 경우
@@ -55,12 +63,18 @@ class DetailService {
         error.status = 404
         throw error;
       }
-      const details = await this.detailRepository.updateDetail(detailsId, content, imgUrl)
-      const deleteWritePack = await this.detailRepository.deleteWritePack(detailsId)
-      const writePack = await this.detailRepository.updeateWritePack(detailsId, itemData)
+      const t = await sequelize.transaction({
+        isolationLevel: Transaction.ISOLATION_LEVELS.READ_COMMITTED,
+      });
+      const details = await this.detailRepository.updateDetail(detailsId, content, imgUrl, { transaction: t })
+      const deleteWritePack = await this.detailRepository.deleteWritePack(detailsId, { transaction: t })
+      const writePack = await this.detailRepository.updeateWritePack(detailsId, itemData, { transaction: t })
 
+      await t.commit();
       return details, writePack
+
     } catch (err) {
+      await t.rollback();
       console.error(err)
     }
   }
