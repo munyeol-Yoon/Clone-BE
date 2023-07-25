@@ -1,5 +1,5 @@
 const ItemPageService = require('../services/itempage.service');
-const { itemPageModels, optionsModels, itemImgListsModels } = require('../validations/itempage.validation');
+const { itemPageModels } = require('../validations/itempage.validation');
 
 class ItemPageController {
   itemPageService = new ItemPageService();
@@ -36,11 +36,14 @@ class ItemPageController {
   // 상품 생성
   createItem = async (req, res) => {
     const { userId } = res.locals.user;
-    const { brandName, itemName, rating, discount, price } = await itemPageModels.validateAsync(req.body);
-    const { colorData, sizeData } = await optionsModels.validateAsync(req.body);
-    const { itemImgData } = await itemImgListsModels.validateAsync(req.body);
+    const { brandName, itemName, rating, discount, price, colorData, sizeData, itemImgData } = req.body;
+
+    const { error } = itemPageModels.validate({ brandName, itemName, rating, discount, price });
+    console.log(error);
 
     try {
+      if (error) return res.status(400).json({ errorMessage: error.details[0].message });
+
       if (userId != '1') {
         res.status(400).json({ errorMessage: '상품 생성은 관리자만 가능합니다.' });
       }
@@ -68,11 +71,13 @@ class ItemPageController {
   updateItem = async (req, res) => {
     const { itemId } = req.params;
     const { userId } = res.locals.user;
-    const { brandName, itemName, rating, discount, price } = await itemPageModels.validateAsync(req.body);
-    const { colorData, sizeData } = await optionsModels.validateAsync(req.body);
-    const { itemImgData } = await itemImgListsModels.validateAsync(req.body);
+    const { brandName, itemName, rating, discount, price, colorData, sizeData, itemImgData } = req.body;
+
+    const { error } = itemPageModels.validate({ brandName, itemName, rating, discount, price });
 
     try {
+      if (error) return res.status(400).json({ errorMessage: error.details[0].message });
+
       if (userId != '1') {
         return res.status(400).json({ errorMessage: '상품 수정은 관리자만 가능합니다.' });
       }
