@@ -11,7 +11,7 @@ router.post('/image', upload.single('image'), detailController.createImage); // 
 router.post('/', authMiddleware, detailController.createDetail); // 집사진 상세 생성
 router.get('/:detailsId', detailController.getDetailOne); // 집사진 상세 조회
 router.put('/:detailsId', authMiddleware, detailController.updateDetail); // 집사진 상세 수정
-router.delete('/:detailsId', detailController.deleteDetail); // 집사진 상세 삭제
+router.delete('/:detailsId', authMiddleware, detailController.deleteDetail); // 집사진 상세 삭제
 
 
 module.exports = router;

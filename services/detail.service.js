@@ -65,11 +65,16 @@ class DetailService {
     }
   }
   // 집 사진 삭제
-  deleteDetail = async (detailsId) => {
+  deleteDetail = async (userId, detailsId) => {
     try {
       const checkdetail = await this.detailRepository.checkDetail(detailsId)
       if (!checkdetail) {
         const error = new Error('집사진이 존재하지 않습니다.');
+        error.status = 404
+        throw error;
+      }
+      if (checkdetail.userId !== userId) {
+        const error = new Error('글쓴이가 아닙니다.');
         error.status = 404
         throw error;
       }

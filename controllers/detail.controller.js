@@ -75,8 +75,9 @@ class DetailController {
   // 집사진 삭제
   deleteDetail = async (req, res, next) => {
     try {
+      const { userId } = res.locals.user;
       const { detailsId } = req.params;
-      const details = await this.detailService.deleteDetail(detailsId);
+      const details = await this.detailService.deleteDetail(userId, detailsId);
       res.status(200).json({ Message: "집사진을 삭제하였습니다" });
     } catch (error) {
       if (error.status)
