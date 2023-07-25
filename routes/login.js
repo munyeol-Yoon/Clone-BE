@@ -23,7 +23,7 @@ router.get(
 
     // JWT를 쿠키에 담아 클라이언트에게 전달
     res.cookie("cowdog", `Bearer ${token}`);
-    res.redirect("https://lv3-ui-components.vercel.app/");
+    res.redirect("http://localhost:3000");
   }
 );
 
