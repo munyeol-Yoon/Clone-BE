@@ -13,6 +13,12 @@ class DetailService {
 
     try {
       const userCheek = await this.detailRepository.userCheek(userId, { transaction: t });
+      if (!userCheek) {
+        await t.commit();
+        const error = new Error('집사진의 생성 권한이 없습니다.');
+        error.status = 403;
+        throw error;
+      }
       const detail = await this.detailRepository.createDetail(userId, content, imgUrl, { transaction: t });
       if (!itemData) {
         await t.commit();
@@ -30,14 +36,14 @@ class DetailService {
       throw error;
     }
   };
-  // 집사진 상세 조회
 
+  // 집사진 상세 조회
   // 집사진에 들어갈 아이템 ID 구하기
   findOneDetail = async (detailsId,) => {
     const itemIds = await this.detailRepository.findItemId(detailsId);
-    // 집사진에 필요한 아이템 디테일 조회
+    // 집사진 상세 조회(아이템 포함)
     const [details, itemData] = await this.detailRepository.findOneDetail(detailsId, itemIds);
-    // 유저 정보 가져오기
+    // 글쓴이 정보 가져오기
     const userData = await this.detailRepository.findUserData(details.userId)
     //! 집사진이 없을 경우
     if (!details) {
@@ -57,7 +63,7 @@ class DetailService {
         error.status = 404
         throw error;
       }
-      console.log(checkdetail.userId !== userId)
+      //! 글쓴이가 맞는지 
       if (checkdetail.userId !== userId) {
         const error = new Error('글쓴이가 아닙니다.');
         error.status = 404

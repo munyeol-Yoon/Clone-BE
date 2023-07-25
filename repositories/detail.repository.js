@@ -7,18 +7,14 @@ class DetailRepository {
   // 생성 권한 조회
   userCheek = async (userId) => {
     const userCheek = await Users.findOne({ where: userId })
-    if (!userCheek) {
-      const error = new Error('집사진의 생성 권한이 없습니다.'); // ERROR 생성자를 통해 message 전달
-      error.status = 403; // ERROR 객체를 통해서 Status 추가
-      throw error;
-    }
+    return userCheek
   }
-  // 집사진 만들기
+  // 집사진 생성
   createDetail = async (userId, content, imgUrl) => {
     const derail = await DetailPages.create({ userId, content, imgUrl });
     return derail;
   }
-  // 집사진-상품 테이블 만들기 
+  // 집사진-상품 데이터 생성
   createWritePack = async (itemData, detailsId) => {
     const writePackArray = itemData.map((item) => {
       return {
@@ -32,7 +28,7 @@ class DetailRepository {
     return writePack
   }
 
-  // 집사진에 들어갈 아이템 구하기
+  // 집사진에 포함된 아이템 구하기
   findItemId = async (detailsId) => {
     const itemId = await WritePacks.findAll({
       attributes: ['itemId'],
