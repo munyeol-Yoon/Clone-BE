@@ -21,6 +21,9 @@ class ItemPageController {
 
     try {
       const oneItem = await this.itemPageService.findOneItem(itemId);
+      if (!oneItem) {
+        return res.status(400).json({ errorMessage: '상품이 존재하지 않습니다.' });
+      }
 
       res.status(200).json({ oneItem });
     } catch (err) {
@@ -66,7 +69,12 @@ class ItemPageController {
 
     try {
       if (userId != '1') {
-        res.status(400).json({ errorMessage: '상품 수정은 관리자만 가능합니다.' });
+        return res.status(400).json({ errorMessage: '상품 수정은 관리자만 가능합니다.' });
+      }
+
+      const updateTarget = await this.itemPageService.findOneItem(itemId);
+      if (!updateTarget) {
+        return res.status(400).json({ errorMessage: '수정할 상품이 존재하지 않습니다.' });
       }
 
       const updateItem = await this.itemPageService.updateItem(
@@ -97,6 +105,11 @@ class ItemPageController {
     try {
       if (userId != '1') {
         res.status(400).json({ errorMessage: '상품 삭제는 관리자만 가능합니다.' });
+      }
+
+      const deleteTarget = await this.itemPageService.findOneItem(itemId);
+      if (!deleteTarget) {
+        return res.status(400).json({ errorMessage: '삭제할 상품이 존재하지 않습니다.' });
       }
 
       const deleteItem = await this.itemPageService.deleteItem(userId, itemId);
