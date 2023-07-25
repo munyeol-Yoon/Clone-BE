@@ -4,7 +4,7 @@ require("dotenv").config();
 
 module.exports = async (req, res, next) => {
   try {
-    const { cowdog } = req.cookies;
+    const { cowdog } = req.headers;
 
     const [type, token] = (cowdog ?? "").split(" ");
 
