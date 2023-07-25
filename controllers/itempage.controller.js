@@ -1,4 +1,5 @@
 const ItemPageService = require('../services/itempage.service');
+const { itemPageModels, optionsModels, itemImgListsModels } = require('../validations/itempage.validation');
 
 class ItemPageController {
   itemPageService = new ItemPageService();
@@ -34,8 +35,10 @@ class ItemPageController {
 
   // 상품 생성
   createItem = async (req, res) => {
-    let { brandName, itemName, rating, discount, price, colorData, sizeData, itemImgData } = req.body;
     const { userId } = res.locals.user;
+    const { brandName, itemName, rating, discount, price } = await itemPageModels.validateAsync(req.body);
+    const { colorData, sizeData } = await optionsModels.validateAsync(req.body);
+    const { itemImgData } = await itemImgListsModels.validateAsync(req.body);
 
     try {
       if (userId != '1') {
@@ -63,9 +66,11 @@ class ItemPageController {
 
   // 상품 수정
   updateItem = async (req, res) => {
-    const { brandName, itemName, rating, discount, price, colorData, sizeData, itemImgData } = req.body;
     const { itemId } = req.params;
     const { userId } = res.locals.user;
+    const { brandName, itemName, rating, discount, price } = await itemPageModels.validateAsync(req.body);
+    const { colorData, sizeData } = await optionsModels.validateAsync(req.body);
+    const { itemImgData } = await itemImgListsModels.validateAsync(req.body);
 
     try {
       if (userId != '1') {
