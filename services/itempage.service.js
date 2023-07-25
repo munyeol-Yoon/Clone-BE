@@ -73,18 +73,18 @@ class ItemPageService {
     const updateSizeData = await this.itemPageRepository.updateSizeData(itemId, JSON.stringify(sizeData));
     const updateItemImgData = await this.itemPageRepository.updateItemImgData(itemId, JSON.stringify(itemImgData));
 
-    return updateItem;
+    return [updateItem, updateColorData, updateSizeData, updateItemImgData];
   };
 
   // 상품 삭제
   deleteItem = async (userId, itemId) => {
+    const deleteItem = await this.itemPageRepository.deleteItem(userId, itemId);
+
     const deleteColorData = await this.itemPageRepository.deleteColorData(itemId);
     const deleteSizeData = await this.itemPageRepository.deleteSizeData(itemId);
     const deleteItemImgData = await this.itemPageRepository.deleteItemImgData(itemId);
 
-    const deleteItem = await this.itemPageRepository.deleteItem(userId, itemId);
-
-    return [deleteColorData, deleteSizeData, deleteItemImgData, deleteItem];
+    return [deleteItem, deleteColorData, deleteSizeData, deleteItemImgData];
   };
 }
 
