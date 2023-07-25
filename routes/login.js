@@ -23,7 +23,7 @@ router.get(
 
     // JWT를 쿠키에 담아 클라이언트에게 전달
     res.cookie("cowdog", `Bearer ${token}`);
-    res.redirect("http://localhost:3000");
+    res.redirect("https://flatland.shop/");
   }
 );
 
