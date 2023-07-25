@@ -3,19 +3,7 @@ const sequelize = require('sequelize');
 const { Op } = require('sequelize');
 
 class DetailRepository {
-  findAlldetail = async () => {
-    const main = await DetailPages.findAll({
-      attributes: ['detailsId', 'imgUrl'],
-      raw: true,
-      include: [
-        {
-          model: Users,
-          attributes: ['nickname', 'profileImgUrl', 'createdAt'],
-        },
-      ],
-    })
-    return main
-  }
+
   // 유저 권한 조회
   userCheek = async (userId) => {
     const userCheek = await Users.findOne({ where: userId })
