@@ -74,10 +74,15 @@ class DetailController {
       );
 
       res.status(200).json({ Message: "포스트를 생성하였습니다" });
+
     } catch (error) {
-      if (error.status)
+      console.log(error)
+      if (error.isJoi) {
+        return res.status(409).json({ errorMessage: error.message })
+      }
+      if (error.status) {
         return res.status(error.status).json({ errorMessage: error.message });
-      if (error.isJoi) return res.status(409).json({ errorMessage: error.detail[0].message })
+      }
       res.json({ errorMessage: error.message });
     }
   };
