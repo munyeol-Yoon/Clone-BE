@@ -38,7 +38,6 @@ class DetailController {
         return res.status(409).json({ errorMessage: error.message })
       }
       if (error.status) {
-
         return res.status(error.status).json({ errorMessage: error.message });
       }
       res.json({ errorMessage: error.message });

@@ -31,7 +31,7 @@ const detailValidation = joi.object({
     .min(1).required().messages({
       'any.required': '상품 태그가 하나 이상 있어야 합니다(1)',
       'array.empty': '상품 태그가 하나 이상 있어야 합니다(2).',
-      'array.base': '데이터 형태가 잘 못 되었습니다.(배열)',
+      'array.base': '데이터 형태가 잘못 되었습니다.(배열)',
       'array.min': '상품 태그가 하나 이상 있어야 합니다(3).'
     }),
 })

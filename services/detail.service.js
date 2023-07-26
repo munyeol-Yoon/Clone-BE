@@ -7,10 +7,10 @@ class DetailService {
 
   // 집사진 생성
   createDetail = async (userId, content, imgUrl, itemData) => {
+
     const t = await sequelize.transaction({
       isolationLevel: Transaction.ISOLATION_LEVELS.READ_COMMITTED,
     });
-
     try {
       const userCheek = await this.detailRepository.userCheek(userId, { transaction: t });
       if (!userCheek) {
@@ -72,8 +72,11 @@ class DetailService {
       const t = await sequelize.transaction({
         isolationLevel: Transaction.ISOLATION_LEVELS.READ_COMMITTED,
       });
+      // 집사진 수정
       const details = await this.detailRepository.updateDetail(detailsId, content, imgUrl, { transaction: t })
+      // 기존 집사진 - 상품 삭제
       const deleteWritePack = await this.detailRepository.deleteWritePack(detailsId, { transaction: t })
+      // 새로운 집사진 - 상품 생성
       const writePack = await this.detailRepository.updeateWritePack(detailsId, itemData, { transaction: t })
 
       await t.commit();
