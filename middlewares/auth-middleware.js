@@ -4,7 +4,7 @@ require("dotenv").config();
 
 module.exports = async (req, res, next) => {
   try {
-    const { cowdog } = req.cookies;
+    const cowdog = req.headers["cowdog"];
 
     const [type, token] = (cowdog ?? "").split(" ");
 
@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
         .status(403)
         .json({ errorMessage: "로그인이 필요한 기능입니다." });
     }
-
+    console.log("asfewbfiuew");
     const decodeToken = jwt.verify(token, process.env.JWT_SECRET);
 
     const userId = decodeToken.userId;

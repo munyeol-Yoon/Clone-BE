@@ -1,6 +1,6 @@
 const DetailService = require("../services/detail.service");
 
-const { detailValidation } = require('../validations/detail.validation')
+const { detailValidation } = require("../validations/detail.validation");
 // 스키마
 
 class DetailController {
@@ -22,8 +22,8 @@ class DetailController {
   createDetail = async (req, res, next) => {
     try {
       const { userId } = res.locals.user;
-      const { content, itemData, imgUrl } = await detailValidation.validateAsync(req.body);
 
+      const { content, itemData, imgUrl } = await detailValidation.validateAsync(req.body);
       const details = await this.detailService.createDetail(
         userId,
         content,
@@ -40,6 +40,7 @@ class DetailController {
       if (error.status) {
         return res.status(error.status).json({ errorMessage: error.message });
       }
+
       res.json({ errorMessage: error.message });
     }
   };
@@ -64,7 +65,8 @@ class DetailController {
     try {
       const { userId } = res.locals.user;
       const { detailsId } = req.params;
-      const { content, imgUrl, itemData } = await detailValidation.validateAsync(req.body);
+      const { content, imgUrl, itemData } =
+        await detailValidation.validateAsync(req.body);
       const details = await this.detailService.updateDetail(
         userId,
         detailsId,

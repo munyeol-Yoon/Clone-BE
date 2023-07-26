@@ -78,11 +78,11 @@ class ItemPageService {
 
   // 상품 삭제
   deleteItem = async (userId, itemId) => {
-    const deleteItem = await this.itemPageRepository.deleteItem(userId, itemId);
-
     const deleteColorData = await this.itemPageRepository.deleteColorData(itemId);
     const deleteSizeData = await this.itemPageRepository.deleteSizeData(itemId);
     const deleteItemImgData = await this.itemPageRepository.deleteItemImgData(itemId);
+
+    const deleteItem = await this.itemPageRepository.deleteItem(userId, itemId);
 
     return [deleteItem, deleteColorData, deleteSizeData, deleteItemImgData];
   };

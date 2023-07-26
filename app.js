@@ -12,7 +12,13 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+const corsOptions = {
+  origin: "*", // 특정 도메인 허용
+  credentials: true, // 'withCredentials'를 true로 설정
+  allowedHeaders: ["Content-Type", "cowdog"],
+};
+
+app.use(cors(corsOptions));
 app.use(
   session({
     secret: process.env.SESSION_SECRET, // 세션 ID 를 서명하는데 사용되는 키
