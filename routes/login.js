@@ -23,8 +23,10 @@ router.get(
 
     // JWT를 쿠키에 담아 클라이언트에게 전달
     res.cookie("cowdog", `Bearer ${token}`);
+
+    res.redirect(`https://flatland.shop/auth/callback?code=${token}`);
     // res.redirect("https://flatland.shop/");
-    return res.status(200).json({ message: "카카오 로그인 성공", token });
+    // return res.status(200).json({ message: "카카오 로그인 성공", token });
   }
 );
 
