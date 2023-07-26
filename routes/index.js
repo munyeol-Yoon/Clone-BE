@@ -15,5 +15,10 @@ router.use("/main", main);
 router.use("/detail", detail);
 router.use("/itempage", itempage);
 router.use("/userinfo", userinfo);
+router.use("/logout", (req, res) => {
+  res.clearCookie("cowdog");
+
+  return res.status(200).json({ message: "로그아웃에 성공하였습니다. " });
+});
 
 module.exports = router;
