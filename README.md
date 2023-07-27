@@ -10,6 +10,10 @@
 
 API 명세서 : [명세서](https://docs.google.com/spreadsheets/d/18N-oHqhDXmBjzYYKPYeN8ghFRAOXBLCZdJJ8N4JHpjg/edit?usp=sharing)
 
+FE-Repository : https://github.com/CowDogHome/Clone-FE
+
+BE-Repository : https://github.com/CowDogHome/Clone-BE
+
 ## 아키텍처
 
 ![아키텍처](/아키텍처.png)
