@@ -12,6 +12,8 @@ API 명세서 : [명세서](https://docs.google.com/spreadsheets/d/18N-oHqhDXmBj
 
 ## 아키텍처
 
+![아키텍처](/아키텍처.png)
+
 ## ERD
 
 ![ERD](/Clone_ERD.png)
